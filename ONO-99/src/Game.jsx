@@ -11,15 +11,18 @@ function Game({ onNavigate }) {
 
     return (
         <div>
+            <h2 className="pl-writing">Игроки</h2>
+            <div className="players">
+                <ul className="pl-list">
+                    {people.map((person, index) => (
+                        <li key={index}>{person}</li>
+                    ))}
+                </ul>
+            </div>
+
             <h1>GAME</h1>
-            <button type="button" onClick={() => onNavigate("mainmenu")}>HOME</button>
+            <button type="button" className="g-button" onClick={() => onNavigate("mainmenu")}>HOME</button>
             
-            <h2>Игроки</h2>
-            <ol>
-                {people.map((person, index) => (
-                    <li>{person}</li>
-                ))}
-            </ol>
         </div>
     );
 }

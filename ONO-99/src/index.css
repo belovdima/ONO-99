@@ -154,7 +154,8 @@ svg * {
 }
 
 .text {
-    background-color: brown;
+    border-radius: 10px;
+    background-color: rgb(146, 175, 170);
 }
 
 .add-person {
@@ -173,4 +174,33 @@ input[type="text"] {
     justify-content: center;
     padding-top: 15px;
     gap: 5px;
+}
+
+.g-button {
+    border-color: transparent;
+    border-radius: 5px;
+    background-color: bisque;
+    font-family: Ubuntu;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.players {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pl-list {
+    display: flex;
+    font-family: Ubuntu;
+    font-size: 30px;
+    font-weight: bold;
+    gap: 20px;
+}
+
+.pl-writing {
+    display: flex;
+    justify-content: center;
 }
