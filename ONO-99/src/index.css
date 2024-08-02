@@ -127,3 +127,50 @@ svg * {
     font-size: 30px;
     font-weight: bold;
 }
+
+.ap-section {
+    font-family: Ubuntu;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.ap-upper {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.home-button,
+.delete-button,
+.move-button,
+.add-button {
+    border-color: transparent;
+    border-radius: 5px;
+    background-color: bisque;
+    font-family: Ubuntu;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.text {
+    background-color: brown;
+}
+
+.add-person {
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
+}
+
+input[type="text"] {
+    border-color: 2px solid black;
+    font-size: 30px;
+}
+
+.person {
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+    gap: 5px;
+}
