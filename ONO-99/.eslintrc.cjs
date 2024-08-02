@@ -12,6 +12,7 @@ module.exports = {
     settings: { react: { version: "18.2" } },
     plugins: ["react-refresh"],
     rules: {
+        "no-unused-vars": ["warn"],
         "react/react-in-jsx-scope": "off", // Для игнорирования 'React' is defined but never used
         "react/prop-types": "off",
         "react/jsx-no-target-blank": "off",
