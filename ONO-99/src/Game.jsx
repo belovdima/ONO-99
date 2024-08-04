@@ -1,3 +1,4 @@
+import { func } from "prop-types";
 import React, { useState, useEffect } from "react";
 
 function Game({ onNavigate }) {
@@ -9,7 +10,56 @@ function Game({ onNavigate }) {
         setPeople(savedPeople);
     }, []);
 
-    const score = 0
+
+    const [score, setScore] = useState(0)
+
+    function handlePlusOne () {
+        setScore(score + 1)
+    }
+
+    function handlePlusTwo () {
+        setScore(score + 2)
+    }
+
+    function handlePlusThree () {
+        setScore(score + 3)
+    }
+
+    function handlePlusFour () {
+        setScore(score + 4)
+    }
+
+    function handlePlusFive () {
+        setScore(score + 5)
+    }
+
+    function handlePlusSix () {
+        setScore(score + 6)
+    }
+
+    function handlePlusSeven () {
+        setScore(score + 7)
+    }
+
+    function handlePlusEight () {
+        setScore(score + 8)
+    }
+
+    function handlePlusNine () {
+        setScore(score + 9)
+    }
+
+    function handlePlusTen () {
+        setScore(score + 10)
+    }
+
+    function handleMinusTen () {
+        setScore(score - 10)
+    }
+
+    function handleZero () {
+        setScore(score + 0)
+    }
 
     return (
         <div>
@@ -25,24 +75,24 @@ function Game({ onNavigate }) {
             <div className="g-cards">
                 <div className="g-numbers">
                     <div className="one-three">
-                        <button type="button" className="number one">1</button>
-                        <button type="button" className="number two">2</button>
-                        <button type="button" className="number three">3</button>
+                        <button type="button" className="number one" onClick={handlePlusOne}>1</button>
+                        <button type="button" className="number two" onClick={handlePlusTwo}>2</button>
+                        <button type="button" className="number three" onClick={handlePlusThree}>3</button>
                     </div>
                     <div className="four-six">
-                        <button type="button" className="number four">4</button>
-                        <button type="button" className="number five">5</button>
-                        <button type="button" className="number six">6</button>
+                        <button type="button" className="number four" onClick={handlePlusFour}>4</button>
+                        <button type="button" className="number five" onClick={handlePlusFive}>5</button>
+                        <button type="button" className="number six" onClick={handlePlusSix}>6</button>
                     </div>
                     <div className="seven-nine">
-                        <button type="button" className="number seven">7</button>
-                        <button type="button" className="number eight">8</button>
-                        <button type="button" className="number nine">9</button>
+                        <button type="button" className="number seven" onClick={handlePlusSeven}>7</button>
+                        <button type="button" className="number eight" onClick={handlePlusEight}>8</button>
+                        <button type="button" className="number nine" onClick={handlePlusNine}>9</button>
                     </div>
                     <div className="ten-zero">
-                        <button type="button" className="number ten">10</button>
-                        <button type="button" className="number zero">0</button>
-                        <button type="button" className="number minus-ten">-10</button>
+                        <button type="button" className="number ten" onClick={handlePlusTen}>10</button>
+                        <button type="button" className="number zero" onClick={handleZero}>0</button>
+                        <button type="button" className="number minus-ten" onClick={handleMinusTen}>-10</button>
                     </div>
                 </div>
                 <div className="g-actions">
