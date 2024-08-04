@@ -177,6 +177,8 @@ input[type="text"] {
 }
 
 .g-button {
+    position: absolute;
+    top: 0px;
     border-color: transparent;
     border-radius: 5px;
     background-color: bisque;
@@ -220,7 +222,83 @@ input[type="text"] {
 }
 
 .g-score {
+    top: 400px;
     display: flex;
     justify-content: center;
+    font-family: Ubuntu;
+    font-size: 150px;
+    font-weight: bold;
     gap: 10px;
+}
+
+.compas-players {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    font-family: Ubuntu;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.pre-pl,
+.nex-pl {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 150px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: brown;
+    font-size: 20px;
+}
+
+.cur-pl {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 200px;
+    height: 75px;
+    border-radius: 50px;
+    background-color: blue;
+}
+
+.pre-ext,
+.nex-ext {
+    position: absolute;
+    top: 70px;
+    display: flex;
+    flex-basis: 100%;
+    justify-content: center;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.cur-ext {
+    position: absolute;
+    top: 82px;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.g-numbers {
+    display: grid;
+}
+
+.one-three,
+.four-six,
+.seven-nine,
+.ten-zero {
+    display: flex;
+}
+
+.g-actions {
+    display: flex;
+}
+
+.g-cards {
+    position: absolute;
 }

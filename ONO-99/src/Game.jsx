@@ -77,6 +77,12 @@ function Game({ onNavigate }) {
     return (
         <div>
 
+            <div className="compas-players">
+                <div className="pre-pl">{people[previousPlayerIndex]} <div className="pre-ext">Пред. игрок</div></div>
+                <div className="cur-pl">{people[currentPlayerIndex]} <div className="cur-ext">Ход игрока</div></div> 
+                <div className="nex-pl">{people[nextPlayerIndex]} <div className="nex-ext">След. игрок</div></div>
+            </div>
+
             {gameOver && <div>ВСЁ</div>}    
 
             <h2 className="pl-writing">Игроки</h2>
@@ -88,11 +94,7 @@ function Game({ onNavigate }) {
                 </ul>
             </div>
 
-            <div>
-                Ход игрока {people[currentPlayerIndex]} <br />
-                Следующий игрок {people[nextPlayerIndex]} <br />
-                Предыдущий игрок {people[previousPlayerIndex]}
-            </div>
+            
 
             <div className="g-cards">
                 <div className="g-numbers">
@@ -124,11 +126,9 @@ function Game({ onNavigate }) {
             </div>
 
             <div className="g-score">
-                <div className="g-score-writing">Сумма колоды: </div>
                 <div className="score">{score}</div>
             </div>
 
-            <h1>GAME</h1>
             <button type="button" className="g-button" onClick={() => onNavigate("mainmenu")}>HOME</button>
         </div>
     );
