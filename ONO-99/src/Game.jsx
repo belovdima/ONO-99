@@ -1,12 +1,16 @@
+import { func } from "prop-types";
 import React, { useState, useEffect } from "react";
 
 function Game({ onNavigate }) {
-    const [people, setPeople] = useState([]);
-    const [score, setScore] = useState(0);
-    const [playerArr, setPlayerArr] = useState([]);
-    const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0); // Состояние для текущего игрока
-    const [direction, setDirection] = useState(true)
+    const [people, setPeople] = useState([]); // Список людей
+    const [score, setScore] = useState(0); // Счет
+    const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0); // Индекс текущего игрока
+    const [nextPlayerIndex, setNextPlayerIndex] = useState(0)
+    const [previousPlayerIndex, setPreviousPlayerIndex] = useState(0); // Индекс предыдущего игрока
+    const [direction, setDirection] = useState(true); // Направление перемещения (вперед/назад)
+    const [gameOver, setGameOver] = useState(false); // Флаг завершения игры
 
+    // Функция для переключения направления перемещения
     function handleReverse () {
         if (direction === true) {
             setDirection(false)
@@ -15,21 +19,33 @@ function Game({ onNavigate }) {
         }
     }
 
+    // Загрузка списка людей из локального хранилища при монтировании компонента
     useEffect(() => {
         const savedPeople = JSON.parse(localStorage.getItem("people")) || [];
         setPeople(savedPeople);
     }, []);
 
-    useEffect(() => {
-        setPlayerArr(people);
-    }, [people]);
-
+    // Установка первого игрока при загрузке данных
     useEffect(() => {
         if (people.length > 0) {
-            setCurrentPlayerIndex(0); // Установить первого игрока при загрузке данных
+            setCurrentPlayerIndex(0); // Установить первого игрока
         }
     }, [people]);
 
+    // Обновление nextPlayerIndex и previousPlayerIndex при изменении currentPlayerIndex или direction
+    useEffect(() => {
+        if (people.length > 0) {
+            setNextPlayerIndex((currentPlayerIndex + (direction ? 1 : -1) + people.length) % people.length);
+            setPreviousPlayerIndex((currentPlayerIndex - (direction ? 1 : -1) + people.length) % people.length);
+        }
+    }, [currentPlayerIndex, direction, people]);
+
+     // Обновление флага завершения игры при изменении счета
+     useEffect(() => {
+        setGameOver(score >= 99); // Если счет больше или равен 99, игра завершена
+    }, [score]);
+
+    // Функции для изменения счета
     function handlePlusOne() { setScore(score + 1); }
     function handlePlusTwo() { setScore(score + 2); }
     function handlePlusThree() { setScore(score + 3); }
@@ -43,6 +59,7 @@ function Game({ onNavigate }) {
     function handleMinusTen() { setScore(score - 10); }
     function handleZero() { setScore(score + 0); }
 
+    // Переключение на следующего игрока
     function switchPlayer() {
         if (people.length === 0) return; // Не делать ничего, если нет игроков
 
@@ -56,8 +73,12 @@ function Game({ onNavigate }) {
         });
     }
 
+
     return (
         <div>
+
+            {gameOver && <div>ВСЁ</div>}    
+
             <h2 className="pl-writing">Игроки</h2>
             <div className="players">
                 <ul className="pl-list">
@@ -68,7 +89,9 @@ function Game({ onNavigate }) {
             </div>
 
             <div>
-                Ход игрока {people[currentPlayerIndex]} 
+                Ход игрока {people[currentPlayerIndex]} <br />
+                Следующий игрок {people[nextPlayerIndex]} <br />
+                Предыдущий игрок {people[previousPlayerIndex]}
             </div>
 
             <div className="g-cards">
