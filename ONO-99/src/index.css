@@ -204,3 +204,17 @@ input[type="text"] {
     display: flex;
     justify-content: center;
 }
+
+.number {
+    width: 57px;
+    height: 87px;
+    font-family: Ubuntu;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.action {
+    width: 85.5px;
+    font-family: Ubuntu;
+    font-weight: bold;
+}
