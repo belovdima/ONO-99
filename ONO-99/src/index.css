@@ -218,3 +218,9 @@ input[type="text"] {
     font-family: Ubuntu;
     font-weight: bold;
 }
+
+.g-score {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}

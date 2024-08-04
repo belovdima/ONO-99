@@ -1,64 +1,59 @@
-import { func } from "prop-types";
 import React, { useState, useEffect } from "react";
 
 function Game({ onNavigate }) {
     const [people, setPeople] = useState([]);
+    const [score, setScore] = useState(0);
+    const [playerArr, setPlayerArr] = useState([]);
+    const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0); // Состояние для текущего игрока
+    const [direction, setDirection] = useState(true)
 
-    // useEffect для загрузки данных из localStorage при монтировании компонента
+    function handleReverse () {
+        if (direction === true) {
+            setDirection(false)
+        } else {
+            setDirection(true)
+        }
+    }
+
     useEffect(() => {
         const savedPeople = JSON.parse(localStorage.getItem("people")) || [];
         setPeople(savedPeople);
     }, []);
 
+    useEffect(() => {
+        setPlayerArr(people);
+    }, [people]);
 
-    const [score, setScore] = useState(0)
+    useEffect(() => {
+        if (people.length > 0) {
+            setCurrentPlayerIndex(0); // Установить первого игрока при загрузке данных
+        }
+    }, [people]);
 
-    function handlePlusOne () {
-        setScore(score + 1)
-    }
+    function handlePlusOne() { setScore(score + 1); }
+    function handlePlusTwo() { setScore(score + 2); }
+    function handlePlusThree() { setScore(score + 3); }
+    function handlePlusFour() { setScore(score + 4); }
+    function handlePlusFive() { setScore(score + 5); }
+    function handlePlusSix() { setScore(score + 6); }
+    function handlePlusSeven() { setScore(score + 7); }
+    function handlePlusEight() { setScore(score + 8); }
+    function handlePlusNine() { setScore(score + 9); }
+    function handlePlusTen() { setScore(score + 10); }
+    function handleMinusTen() { setScore(score - 10); }
+    function handleZero() { setScore(score + 0); }
 
-    function handlePlusTwo () {
-        setScore(score + 2)
-    }
+    function switchPlayer() {
+        if (people.length === 0) return; // Не делать ничего, если нет игроков
 
-    function handlePlusThree () {
-        setScore(score + 3)
-    }
-
-    function handlePlusFour () {
-        setScore(score + 4)
-    }
-
-    function handlePlusFive () {
-        setScore(score + 5)
-    }
-
-    function handlePlusSix () {
-        setScore(score + 6)
-    }
-
-    function handlePlusSeven () {
-        setScore(score + 7)
-    }
-
-    function handlePlusEight () {
-        setScore(score + 8)
-    }
-
-    function handlePlusNine () {
-        setScore(score + 9)
-    }
-
-    function handlePlusTen () {
-        setScore(score + 10)
-    }
-
-    function handleMinusTen () {
-        setScore(score - 10)
-    }
-
-    function handleZero () {
-        setScore(score + 0)
+        setCurrentPlayerIndex((prevIndex) => {
+            const length = people.length;
+            if (direction) {
+                return (prevIndex + 1) % length; // Перемещение вперед
+            } else {
+                return (prevIndex - 1 + length) % length; // Перемещение назад
+            }
+        });
     }
 
     return (
@@ -72,42 +67,46 @@ function Game({ onNavigate }) {
                 </ul>
             </div>
 
+            <div>
+                Ход игрока {people[currentPlayerIndex]} 
+            </div>
+
             <div className="g-cards">
                 <div className="g-numbers">
                     <div className="one-three">
-                        <button type="button" className="number one" onClick={handlePlusOne}>1</button>
-                        <button type="button" className="number two" onClick={handlePlusTwo}>2</button>
-                        <button type="button" className="number three" onClick={handlePlusThree}>3</button>
+                        <button type="button" className="number one" onClick={() => { handlePlusOne(); switchPlayer(); }}>1</button>
+                        <button type="button" className="number two" onClick={() => { handlePlusTwo(); switchPlayer(); }}>2</button>
+                        <button type="button" className="number three" onClick={() => { handlePlusThree(); switchPlayer(); }}>3</button>
                     </div>
                     <div className="four-six">
-                        <button type="button" className="number four" onClick={handlePlusFour}>4</button>
-                        <button type="button" className="number five" onClick={handlePlusFive}>5</button>
-                        <button type="button" className="number six" onClick={handlePlusSix}>6</button>
+                        <button type="button" className="number four" onClick={() => { handlePlusFour(); switchPlayer(); }}>4</button>
+                        <button type="button" className="number five" onClick={() => { handlePlusFive(); switchPlayer(); }}>5</button>
+                        <button type="button" className="number six" onClick={() => { handlePlusSix(); switchPlayer(); }}>6</button>
                     </div>
                     <div className="seven-nine">
-                        <button type="button" className="number seven" onClick={handlePlusSeven}>7</button>
-                        <button type="button" className="number eight" onClick={handlePlusEight}>8</button>
-                        <button type="button" className="number nine" onClick={handlePlusNine}>9</button>
+                        <button type="button" className="number seven" onClick={() => { handlePlusSeven(); switchPlayer(); }}>7</button>
+                        <button type="button" className="number eight" onClick={() => { handlePlusEight(); switchPlayer(); }}>8</button>
+                        <button type="button" className="number nine" onClick={() => { handlePlusNine(); switchPlayer(); }}>9</button>
                     </div>
                     <div className="ten-zero">
-                        <button type="button" className="number ten" onClick={handlePlusTen}>10</button>
-                        <button type="button" className="number zero" onClick={handleZero}>0</button>
-                        <button type="button" className="number minus-ten" onClick={handleMinusTen}>-10</button>
+                        <button type="button" className="number ten" onClick={() => { handlePlusTen(); switchPlayer(); }}>10</button>
+                        <button type="button" className="number zero" onClick={() => { handleZero(); switchPlayer(); }}>0</button>
+                        <button type="button" className="number minus-ten" onClick={() => { handleMinusTen(); switchPlayer(); }}>-10</button>
                     </div>
                 </div>
                 <div className="g-actions">
-                    <button type="button" className="action reverse">Reverse!</button>
+                    <button type="button" className="action reverse" onClick={handleReverse}>Reverse!</button>
                     <button type="button" className="action play-two">Play two!</button>
                 </div>
             </div>
 
             <div className="g-score">
+                <div className="g-score-writing">Сумма колоды: </div>
                 <div className="score">{score}</div>
             </div>
 
             <h1>GAME</h1>
             <button type="button" className="g-button" onClick={() => onNavigate("mainmenu")}>HOME</button>
-            
         </div>
     );
 }
