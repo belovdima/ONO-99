@@ -17,6 +17,15 @@ function Game({ onNavigate }) {
         } else {
             setDirection(true)
         }
+        //переключение игрока во время нажатия кнопки
+        setCurrentPlayerIndex((prevIndex) => {
+            const length = people.length;
+            if (!direction) {
+                return (prevIndex + 1) % length; // Перемещение вперед
+            } else {
+                return (prevIndex - 1 + length) % length; // Перемещение назад
+            }
+        });
     }
 
     // Загрузка списка людей из локального хранилища при монтировании компонента
