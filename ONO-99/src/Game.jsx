@@ -10,6 +10,8 @@ function Game({ onNavigate }) {
     const [direction, setDirection] = useState(true); // Направление перемещения (вперед/назад)
     const [gameOver, setGameOver] = useState(false); // Флаг завершения игры
 
+
+
     // Функция для переключения направления перемещения
     function handleReverse () {
         if (direction === true) {
@@ -110,12 +112,12 @@ function Game({ onNavigate }) {
                     <div className="one-three">
                         <button type="button" className="number one" onClick={() => { handlePlusOne(); switchPlayer(); }}>1</button>
                         <button type="button" className="number two" onClick={() => { handlePlusTwo(); switchPlayer(); }}>2</button>
-                        <button type="button" className="number three" onClick={() => { handlePlusThree(); switchPlayer(); }}>3</button>
+                        <button type="button" className="number three" onClick={() => { handlePlusThree(); switchPlayer() }}>3</button>
                     </div>
                     <div className="four-six">
                         <button type="button" className="number four" onClick={() => { handlePlusFour(); switchPlayer(); }}>4</button>
                         <button type="button" className="number five" onClick={() => { handlePlusFive(); switchPlayer(); }}>5</button>
-                        <button type="button" className="number six" onClick={() => { handlePlusSix(); switchPlayer(); }}>6</button>
+                        <button type="button" className="number six" onClick={() => { handlePlusSix(); switchPlayer();  }}>6</button>
                     </div>
                     <div className="seven-nine">
                         <button type="button" className="number seven" onClick={() => { handlePlusSeven(); switchPlayer(); }}>7</button>
