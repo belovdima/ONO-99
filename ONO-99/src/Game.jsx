@@ -1,16 +1,15 @@
-import { func } from "prop-types";
 import React, { useState, useEffect } from "react";
 
 function Game({ onNavigate }) {
     const [people, setPeople] = useState([]); // Список людей
     const [score, setScore] = useState(0); // Счет
     const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0); // Индекс текущего игрока
-    const [nextPlayerIndex, setNextPlayerIndex] = useState(0)
+    const [nextPlayerIndex, setNextPlayerIndex] = useState(0);
     const [previousPlayerIndex, setPreviousPlayerIndex] = useState(0); // Индекс предыдущего игрока
     const [direction, setDirection] = useState(true); // Направление перемещения (вперед/назад)
     const [gameOver, setGameOver] = useState(false); // Флаг завершения игры
-
-
+    const [playTwo, setPlayTwo] = useState(false); // Состояние для кнопки "Играй два"
+    const [playTwoAgain, setPlayTwoAgain] = useState(0); // Состояние для отслеживания количества оставшихся ходов
 
     // Функция для переключения направления перемещения
     function handleReverse () {
@@ -29,6 +28,7 @@ function Game({ onNavigate }) {
             }
         });
     }
+
 
     // Загрузка списка людей из локального хранилища при монтировании компонента
     useEffect(() => {
@@ -51,8 +51,8 @@ function Game({ onNavigate }) {
         }
     }, [currentPlayerIndex, direction, people]);
 
-     // Обновление флага завершения игры при изменении счета
-     useEffect(() => {
+    // Обновление флага завершения игры при изменении счета
+    useEffect(() => {
         setGameOver(score >= 99); // Если счет больше или равен 99, игра завершена
     }, [score]);
 
@@ -84,10 +84,33 @@ function Game({ onNavigate }) {
         });
     }
 
+    // Обработка хода игрока
+    function handleMove(scoreFunction) {
+        scoreFunction();
+
+        if (playTwo && playTwoAgain > 0) {
+            if (playTwoAgain === 1) {
+                setPlayTwo(false);
+            }
+            setPlayTwoAgain(playTwoAgain - 1);
+        } else {
+            switchPlayer();
+        }
+    }
+
+    // Обработка нажатия на кнопку "Играй два"
+    function handlePlayTwo() {
+        if (!playTwo) {
+            setPlayTwo(true);
+            setPlayTwoAgain(1);
+        } else {
+            setPlayTwoAgain(playTwoAgain + 1);
+        }
+        switchPlayer();
+    }
 
     return (
         <div>
-
             <div className="compas-players">
                 <div className="pre-pl">{people[previousPlayerIndex]} <div className="pre-ext">Пред. игрок</div></div>
                 <div className="cur-pl">{people[currentPlayerIndex]} <div className="cur-ext">Ход игрока</div></div> 
@@ -105,34 +128,32 @@ function Game({ onNavigate }) {
                 </ul>
             </div>
 
-            
-
             <div className="g-cards">
                 <div className="g-numbers">
                     <div className="one-three">
-                        <button type="button" className="number one" onClick={() => { handlePlusOne(); switchPlayer(); }}>1</button>
-                        <button type="button" className="number two" onClick={() => { handlePlusTwo(); switchPlayer(); }}>2</button>
-                        <button type="button" className="number three" onClick={() => { handlePlusThree(); switchPlayer() }}>3</button>
+                        <button type="button" className="number one" onClick={() => handleMove(handlePlusOne)}>1</button>
+                        <button type="button" className="number two" onClick={() => handleMove(handlePlusTwo)}>2</button>
+                        <button type="button" className="number three" onClick={() => handleMove(handlePlusThree)}>3</button>
                     </div>
                     <div className="four-six">
-                        <button type="button" className="number four" onClick={() => { handlePlusFour(); switchPlayer(); }}>4</button>
-                        <button type="button" className="number five" onClick={() => { handlePlusFive(); switchPlayer(); }}>5</button>
-                        <button type="button" className="number six" onClick={() => { handlePlusSix(); switchPlayer();  }}>6</button>
+                        <button type="button" className="number four" onClick={() => handleMove(handlePlusFour)}>4</button>
+                        <button type="button" className="number five" onClick={() => handleMove(handlePlusFive)}>5</button>
+                        <button type="button" className="number six" onClick={() => handleMove(handlePlusSix)}>6</button>
                     </div>
                     <div className="seven-nine">
-                        <button type="button" className="number seven" onClick={() => { handlePlusSeven(); switchPlayer(); }}>7</button>
-                        <button type="button" className="number eight" onClick={() => { handlePlusEight(); switchPlayer(); }}>8</button>
-                        <button type="button" className="number nine" onClick={() => { handlePlusNine(); switchPlayer(); }}>9</button>
+                        <button type="button" className="number seven" onClick={() => handleMove(handlePlusSeven)}>7</button>
+                        <button type="button" className="number eight" onClick={() => handleMove(handlePlusEight)}>8</button>
+                        <button type="button" className="number nine" onClick={() => handleMove(handlePlusNine)}>9</button>
                     </div>
                     <div className="ten-zero">
-                        <button type="button" className="number ten" onClick={() => { handlePlusTen(); switchPlayer(); }}>10</button>
-                        <button type="button" className="number zero" onClick={() => { handleZero(); switchPlayer(); }}>0</button>
-                        <button type="button" className="number minus-ten" onClick={() => { handleMinusTen(); switchPlayer(); }}>-10</button>
+                        <button type="button" className="number ten" onClick={() => handleMove(handlePlusTen)}>10</button>
+                        <button type="button" className="number zero" onClick={() => handleMove(handleZero)}>0</button>
+                        <button type="button" className="number minus-ten" onClick={() => handleMove(handleMinusTen)}>-10</button>
                     </div>
                 </div>
                 <div className="g-actions">
                     <button type="button" className="action reverse" onClick={handleReverse}>Reverse!</button>
-                    <button type="button" className="action play-two">Play two!</button>
+                    <button type="button" className="action play-two" onClick={handlePlayTwo}>Play two!</button>
                 </div>
             </div>
 
