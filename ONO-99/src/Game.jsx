@@ -104,9 +104,10 @@ function Game({ onNavigate }) {
             setPlayTwo(true);
             setPlayTwoAgain(1);
         } else {
-            setPlayTwoAgain(playTwoAgain + 1);
+            setPlayTwoAgain(playTwoAgain + 1 && playTwoAgain <= 2);
         }
         switchPlayer();
+        console.log(setPlayTwoAgain.length, "PlayTwoAgain")
     }
 
     return (
